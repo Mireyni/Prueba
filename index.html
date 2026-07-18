@@ -1,291 +1,661 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yogucoffee | El lado más refrescante del café en Barranquilla</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Plus Jakarta Sans (Moderna y limpia) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        .bg-cream {
-            background-color: #FDFBF7;
-        }
-        .text-coffee-dark {
-            color: #2C1A11;
-        }
-        .bg-coffee-dark {
-            background-color: #2C1A11;
-        }
-        .bg-coffee-accent {
-            background-color: #C8A27C;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yogucoffe — El café que se come con cuchara</title>
+<meta name="description" content="Yogucoffe: yogur de café hecho en Barranquilla. Cafeína real, proteína y probióticos, bien frío para aguantar el calor de la costa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso: #241209;
+    --espresso-2: #3D2311;
+    --espresso-soft: #5A3820;
+    --crema: #FBF2E3;
+    --crema-2: #F3E2C4;
+    --mango: #F2A93B;
+    --turquesa: #0F8078;
+    --guayaba: #E2543E;
+    --ink: #241209;
+
+    --display: 'Fraunces', serif;
+    --body: 'Space Grotesk', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+
+    --max: 1180px;
+    --pad: clamp(20px, 5vw, 64px);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--crema);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  img, svg{ display:block; max-width:100%; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  h1,h2,h3{ font-family: var(--display); font-weight: 600; line-height: 1.05; letter-spacing: -0.01em; }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--guayaba);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width: 22px; height: 1px;
+    background: var(--guayaba);
+    display:inline-block;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 28px;
+    border-radius: 100px;
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+    white-space: nowrap;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{ background: var(--guayaba); color: var(--crema); }
+  .btn-primary:hover{ background: #c94631; }
+  .btn-ghost{ background: transparent; color: var(--espresso); border-color: var(--espresso); }
+  .btn-ghost:hover{ background: var(--espresso); color: var(--crema); }
+  .btn-light{ background: var(--crema); color: var(--espresso); }
+  .btn-light:hover{ background: #fff; }
+
+  /* ---------- Nav ---------- */
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(251,242,227,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(36,18,9,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px var(--pad);
+    max-width: var(--max); margin:0 auto;
+  }
+  .logo{
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+  }
+  .logo span{ color: var(--guayaba); }
+  .nav-links{
+    display:flex; gap: 32px;
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  .nav-links a{ position:relative; padding: 4px 0; }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; bottom:-2px;
+    width:0; height:2px; background: var(--guayaba);
+    transition: width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:24px; }
+  .menu-toggle{ display:none; background:none; border:none; cursor:pointer; }
+  .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after{
+    content:""; display:block; width:24px; height:2px; background:var(--espresso);
+    position:relative; transition: all .2s ease;
+  }
+  .menu-toggle span::before{ position:absolute; top:-7px; }
+  .menu-toggle span::after{ position:absolute; top:7px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: clamp(50px, 8vw, 90px) var(--pad) 0;
+    max-width: var(--max); margin: 0 auto;
+    display:grid; grid-template-columns: 1.05fr 0.95fr;
+    gap: 40px; align-items:center;
+  }
+  .hero-copy h1{
+    font-size: clamp(2.5rem, 5.4vw, 4.2rem);
+    margin: 18px 0 22px;
+  }
+  .hero-copy h1 em{
+    font-style: italic; color: var(--turquesa);
+  }
+  .hero-copy p{
+    font-size: 1.08rem;
+    max-width: 46ch;
+    color: var(--espresso-soft);
+    margin-bottom: 30px;
+  }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin-bottom: 22px; }
+  .proof{
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--espresso-soft);
+    display:flex; align-items:center; gap:8px;
+  }
+  .proof::before{ content:"●"; color: var(--turquesa); font-size: 0.6rem; }
+
+  .hero-art{ position:relative; }
+  .hero-art svg{ width:100%; height:auto; }
+
+  /* swirl draw-in */
+  .swirl-line{
+    stroke-dasharray: 900;
+    stroke-dashoffset: 900;
+    animation: draw 2.4s ease-out .3s forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+  .jar-float{ animation: float 5s ease-in-out infinite; transform-origin: center; }
+  @keyframes float{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-10px);} }
+
+  /* ---------- Marquee ---------- */
+  .marquee-band{
+    background: var(--espresso);
+    color: var(--crema);
+    overflow: hidden;
+    margin-top: clamp(50px,8vw,90px);
+    padding: 16px 0;
+    border-top: 1px solid rgba(251,242,227,.15);
+    border-bottom: 1px solid rgba(251,242,227,.15);
+  }
+  .marquee-track{
+    display:flex; width: max-content;
+    animation: scroll 26s linear infinite;
+  }
+  .marquee-track span{
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.3rem;
+    padding: 0 28px;
+    white-space: nowrap;
+    display:flex; align-items:center; gap:28px;
+  }
+  .marquee-track span::after{ content:"◆"; color: var(--mango); font-size:0.7rem; }
+  @keyframes scroll{ from{ transform: translateX(0);} to{ transform: translateX(-50%);} }
+
+  /* ---------- Section shell ---------- */
+  section{ padding: clamp(60px,9vw,110px) 0; }
+  .section-head{ max-width: 620px; margin-bottom: 50px; }
+  .section-head h2{ font-size: clamp(2rem, 3.6vw, 2.8rem); margin-top:14px; }
+  .section-head p{ color: var(--espresso-soft); margin-top: 14px; font-size:1.02rem; }
+
+  /* ---------- Beneficios ---------- */
+  .benefits-grid{
+    display:grid; grid-template-columns: repeat(4,1fr); gap: 2px;
+    background: rgba(36,18,9,0.1);
+    border: 1px solid rgba(36,18,9,0.1);
+  }
+  .benefit-card{
+    background: var(--crema);
+    padding: 34px 26px;
+    display:flex; flex-direction:column; gap:16px;
+    opacity:0; transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .benefit-card.in{ opacity:1; transform:none; }
+  .benefit-icon{ width:40px; height:40px; }
+  .benefit-card h3{ font-size:1.15rem; }
+  .benefit-card p{ font-size:0.92rem; color: var(--espresso-soft); }
+
+  /* ---------- Sabores ---------- */
+  .flavors{ background: var(--crema-2); }
+  .flavor-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .flavor-card{
+    border-radius: 22px;
+    padding: 28px 24px 24px;
+    position:relative;
+    overflow:hidden;
+    min-height: 230px;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    color: var(--crema);
+    opacity:0; transform: translateY(24px) scale(.98);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .flavor-card.in{ opacity:1; transform:none; }
+  .flavor-card::before{
+    content:"";
+    position:absolute; inset:0;
+    opacity:.9;
+  }
+  .flavor-card .fc-content{ position:relative; z-index:2; }
+  .flavor-card h3{ font-size:1.3rem; margin-bottom:6px; }
+  .flavor-card p{ font-size:0.85rem; opacity:.85; }
+  .flavor-card .fc-tag{
+    font-family: var(--mono); font-size:0.68rem; letter-spacing:.08em;
+    text-transform:uppercase; opacity:.75; margin-bottom:8px; display:block;
+  }
+
+  .fc-1::before{ background: linear-gradient(160deg, #3D2311, #241209); }
+  .fc-2::before{ background: linear-gradient(160deg, #5A3018, #2E170B); }
+  .fc-3::before{ background: linear-gradient(160deg, #B9834A, #7A4E23); }
+  .fc-4::before{ background: linear-gradient(160deg, #0F8078, #0A5B55); }
+  .fc-5::before{ background: linear-gradient(160deg, #D8752E, #A2531C); }
+  .fc-6::before{ background: linear-gradient(160deg, #C98A3E, #8C5A22); }
+
+  /* ---------- Historia (dark) ---------- */
+  .story{
+    background: var(--espresso);
+    color: var(--crema);
+    position:relative;
+    overflow:hidden;
+  }
+  .story .wrap{ position:relative; z-index:2; display:grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items:center; }
+  .story h2{ font-size: clamp(2rem, 3.6vw, 2.9rem); margin: 14px 0 22px; }
+  .story p{ color: rgba(251,242,227,.75); font-size:1.02rem; margin-bottom: 18px; max-width:48ch; }
+  .quote{
+    border-left: 3px solid var(--mango);
+    padding-left: 22px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height:1.3;
+    margin-top: 26px;
+  }
+  .quote cite{ display:block; font-style:normal; font-family: var(--mono); font-size:0.75rem; margin-top:14px; color: var(--mango); }
+  .story-swirl{ position:absolute; right:-10%; top:50%; transform:translateY(-50%); opacity:.15; width:60%; }
+
+  /* ---------- Puntos de venta ---------- */
+  .points{ }
+  .points-wrap{ display:grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items:start; }
+  .route{ display:flex; flex-direction:column; }
+  .route-item{
+    display:flex; align-items:center; gap:18px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(36,18,9,0.12);
+  }
+  .route-dot{ width:10px; height:10px; border-radius:50%; background: var(--turquesa); flex-shrink:0; }
+  .route-item h4{ font-family: var(--body); font-weight:600; font-size:1.05rem; }
+  .route-item span{ font-family: var(--mono); font-size:0.75rem; color: var(--espresso-soft); }
+  .points-note{
+    margin-top: 26px;
+    background: var(--crema-2);
+    border-radius: 16px;
+    padding: 22px;
+    font-size: 0.95rem;
+  }
+  .points-note a{ color: var(--guayaba); font-weight:600; }
+
+  /* ---------- Testimonios ---------- */
+  .testimonials{ background: var(--crema-2); }
+  .test-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .test-card{
+    background: var(--crema);
+    border-radius: 18px;
+    padding: 30px 26px;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .test-card p{ font-size:1rem; font-family: var(--display); font-style:italic; }
+  .test-who{ font-family: var(--mono); font-size:0.78rem; color: var(--espresso-soft); }
+
+  /* ---------- CTA final ---------- */
+  .cta-final{
+    background: var(--guayaba);
+    color: var(--crema);
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+  }
+  .cta-final .wrap{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:24px; }
+  .cta-final h2{ font-size: clamp(2.1rem, 5vw, 3.4rem); max-width: 16ch; }
+  .cta-final .btn-light{ margin-top: 6px; }
+  .cta-swirl{ position:absolute; inset:0; opacity:.12; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background: var(--espresso);
+    color: rgba(251,242,227,.6);
+    padding: 40px var(--pad);
+  }
+  .footer-wrap{
+    max-width: var(--max); margin:0 auto;
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:16px;
+    font-size:0.85rem;
+  }
+  .footer-wrap .logo{ color: var(--crema); font-size:1.1rem; }
+  .footer-links{ display:flex; gap:22px; }
+
+  /* ---------- Reveal ---------- */
+  [data-reveal]{ opacity:0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .hero{ grid-template-columns: 1fr; }
+    .hero-art{ order:-1; max-width: 340px; margin: 0 auto; }
+    .benefits-grid{ grid-template-columns: repeat(2,1fr); }
+    .flavor-grid{ grid-template-columns: repeat(2,1fr); }
+    .story .wrap{ grid-template-columns: 1fr; }
+    .story-swirl{ display:none; }
+    .points-wrap{ grid-template-columns: 1fr; }
+    .test-grid{ grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px){
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      background: var(--crema);
+      flex-direction:column; gap:0;
+      max-height:0; overflow:hidden;
+      transition: max-height .3s ease;
+      border-bottom: 1px solid rgba(36,18,9,0.08);
+    }
+    .nav-links.open{ max-height: 300px; }
+    .nav-links a{ padding: 16px var(--pad); border-top: 1px solid rgba(36,18,9,0.06); }
+    .menu-toggle{ display:block; }
+    .nav-cta .btn-primary{ display:none; }
+    .benefits-grid{ grid-template-columns: 1fr; }
+    .flavor-grid{ grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    [data-reveal], .benefit-card, .flavor-card{ opacity:1 !important; transform:none !important; }
+  }
+</style>
 </head>
-<body class="bg-cream text-coffee-dark antialiased overflow-x-hidden">
+<body>
 
-    <!-- Header / Navbar -->
-    <header class="fixed w-full top-0 left-0 bg-cream/80 backdrop-blur-md z-50 border-b border-orange-100">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <span class="text-2xl font-extrabold tracking-tight text-coffee-dark">Yogu<span class="text-amber-700">coffee</span></span>
-            </div>
-            <nav class="hidden md:flex items-center space-x-8 font-medium">
-                <a href="#beneficios" class="hover:text-amber-700 transition">Beneficios</a>
-                <a href="#sabores" class="hover:text-amber-700 transition">Sabores</a>
-                <a href="#testimonios" class="hover:text-amber-700 transition">Barranquilla Opina</a>
-            </nav>
-            <div>
-                <a href="#pedidos" class="bg-coffee-dark text-white px-6 py-2.5 rounded-full font-bold shadow-lg hover:bg-amber-800 transition transform hover:-translate-y-0.5 inline-block text-sm">
-                    Pide el tuyo ⚡
-                </a>
-            </div>
+<header>
+  <nav>
+    <div class="logo">Yogu<span>coffe</span></div>
+    <div class="nav-links" id="navLinks">
+      <a href="#producto">Producto</a>
+      <a href="#sabores">Sabores</a>
+      <a href="#historia">Nuestra historia</a>
+      <a href="#puntos">Puntos de venta</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#contacto" class="btn btn-primary">Pídelo ya</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú"><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-copy" data-reveal>
+    <span class="eyebrow">Hecho en Barranquilla, para el calor de la costa</span>
+    <h1>El café que ahora <em>se come</em> con cuchara.</h1>
+    <p>Yogucoffe mezcla yogur cremoso con café molido de verdad. Frío, espeso y con la cafeína que necesitas para aguantar el sol de la 40.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn btn-primary">Pídelo por WhatsApp</a>
+      <a href="#sabores" class="btn btn-ghost">Ver sabores</a>
+    </div>
+    <div class="proof">Más de 50.000 potes vendidos en Barranquilla y el Área Metropolitana</div>
+  </div>
+
+  <div class="hero-art">
+    <svg viewBox="0 0 420 480" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="jarGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5A3018"/>
+          <stop offset="100%" stop-color="#241209"/>
+        </linearGradient>
+        <linearGradient id="lidGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#0F8078"/>
+          <stop offset="100%" stop-color="#0A5B55"/>
+        </linearGradient>
+      </defs>
+
+      <g class="jar-float">
+        <!-- jar body -->
+        <path d="M120 160 Q110 460 160 460 L260 460 Q310 460 300 160 Z" fill="url(#jarGrad)"/>
+        <!-- lid -->
+        <rect x="105" y="120" width="210" height="44" rx="14" fill="url(#lidGrad)"/>
+        <rect x="95" y="108" width="230" height="20" rx="10" fill="#F2A93B"/>
+        <!-- label -->
+        <rect x="140" y="230" width="140" height="150" rx="10" fill="#FBF2E3" opacity="0.95"/>
+        <text x="210" y="290" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="26" fill="#241209">Yogu</text>
+        <text x="210" y="320" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="26" fill="#E2543E">coffe</text>
+        <text x="210" y="350" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="2" fill="#5A3820">ORIGINAL</text>
+      </g>
+
+      <!-- swirl of coffee pouring in -->
+      <path class="swirl-line" d="M80 40 C 160 60, 40 120, 130 150 S 300 200, 210 250 S 60 300, 150 340"
+            fill="none" stroke="#E2543E" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="80" cy="40" r="6" fill="#F2A93B"/>
+    </svg>
+  </div>
+</section>
+
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span>Original</span><span>Moka</span><span>Avellana</span><span>Coco Tostado</span><span>Canela</span><span>Caramelo Salado</span>
+    <span>Original</span><span>Moka</span><span>Avellana</span><span>Coco Tostado</span><span>Canela</span><span>Caramelo Salado</span>
+  </div>
+</div>
+
+<section id="producto">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Producto</span>
+      <h2>No es un yogur con sabor a café. Es café que decidió ser yogur.</h2>
+      <p>Cada pote lleva café colombiano molido de verdad, no saborizante. Espeso, frío y pensado para aguantar el clima de la costa sin perder la textura.</p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <svg class="benefit-icon" viewBox="0 0 40 40" fill="none"><path d="M8 16h20a4 4 0 010 8h-1.2A9 9 0 0118 32H14A9 9 0 015 23V16z" stroke="#E2543E" stroke-width="2"/><path d="M12 8v4M18 8v4M24 8v4" stroke="#E2543E" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3>Cafeína real</h3>
+        <p>12&nbsp;g de café colombiano molido por pote. Nada de saborizante artificial.</p>
+      </div>
+      <div class="benefit-card">
+        <svg class="benefit-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6l4 8 9 1-6.5 6.3L28 30l-8-4.5-8 4.5 1.5-8.7L7 15l9-1 4-8z" stroke="#0F8078" stroke-width="2" stroke-linejoin="round"/></svg>
+        <h3>12 g de proteína</h3>
+        <p>Para el gimnasio, la oficina o la playa de Puerto Colombia.</p>
+      </div>
+      <div class="benefit-card">
+        <svg class="benefit-icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="13" stroke="#F2A93B" stroke-width="2"/><path d="M20 12v8l6 4" stroke="#F2A93B" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3>Cultivos vivos</h3>
+        <p>Probióticos que le hacen bien a tu estómago, no solo a tu antojo.</p>
+      </div>
+      <div class="benefit-card">
+        <svg class="benefit-icon" viewBox="0 0 40 40" fill="none"><path d="M20 7c6 6 10 11 10 16a10 10 0 01-20 0c0-5 4-10 10-16z" stroke="#E2543E" stroke-width="2"/></svg>
+        <h3>Sin azúcar añadida</h3>
+        <p>Endulzado con estevia. Dulce sin el bajón después.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sabores" class="flavors">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Sabores</span>
+      <h2>Seis formas de tomar café con cuchara.</h2>
+      <p>Del tinto de toda la vida a combinaciones más atrevidas, hechas para el paladar costeño.</p>
+    </div>
+
+    <div class="flavor-grid">
+      <div class="flavor-card fc-1">
+        <div class="fc-content">
+          <span class="fc-tag">Clásico</span>
+          <h3>Original</h3>
+          <p>Café colombiano, yogur entero, cero vueltas.</p>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 md:pt-40 md:pb-32 px-6 overflow-hidden relative">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6 text-center md:text-left z-10">
-                <span class="inline-block bg-amber-100 text-amber-900 px-4 py-1.5 rounded-full text-sm font-bold tracking-wide uppercase">
-                    💥 ¡Exclusivo en Barranquilla!
-                </span>
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
-                    El ‘corrientazo’ de energía que tu día pide, <span class="text-amber-700">bien frío.</span>
-                </h1>
-                <p class="text-lg text-gray-600 max-w-lg mx-auto md:mx-0">
-                    En Yogucoffee fusionamos la cremosidad del mejor yogur artesanal con la intensidad del auténtico café premium. Cero culpas, pura energía para aguantar el calor de la Arenosa.
-                </p>
-                <div class="pt-4 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
-                    <a href="#pedidos" class="bg-amber-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-amber-700/20 hover:bg-amber-800 transition transform hover:-translate-y-1 text-center">
-                        Probar Yogucoffee ahora
-                    </a>
-                    <a href="#beneficios" class="border-2 border-coffee-dark text-coffee-dark px-8 py-4 rounded-xl font-bold text-lg hover:bg-coffee-dark hover:text-white transition text-center">
-                        Conocer más
-                    </a>
-                </div>
-                <div class="pt-6 flex justify-center md:justify-start items-center space-x-6 text-sm text-gray-500">
-                    <div class="flex items-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-amber-600 mr-2"></i> 100% Artesanal</div>
-                    <div class="flex items-center"><i data-lucide="zap" class="w-5 h-5 text-amber-600 mr-2"></i> Energía Natural</div>
-                </div>
-            </div>
-            
-            <!-- Imagen Hero / Mockup Conceptual -->
-            <div class="relative flex justify-center items-center">
-                <div class="absolute w-72 h-72 md:w-96 md:h-96 bg-amber-200/50 rounded-full blur-3xl -z-10 animate-pulse"></div>
-                <!-- Contenedor visual moderno -->
-                <div class="w-full max-w-sm bg-gradient-to-br from-amber-900 to-amber-950 p-8 rounded-3xl shadow-2xl text-white relative transform rotate-3 hover:rotate-0 transition duration-500">
-                    <span class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold">Original Blend</span>
-                    <div class="h-64 flex items-center justify-center my-4">
-                        <!-- Icono grande simulando el producto con estética UI flat -->
-                        <div class="text-center">
-                            <i data-lucide="cup-soup" class="w-32 h-32 mx-auto text-amber-200 drop-shadow-md animate-bounce"></i>
-                            <p class="mt-4 font-black tracking-widest text-xl uppercase">YOGUCOFFEE</p>
-                            <p class="text-amber-300 text-xs">Eléctrico • Cremoso • Frío</p>
-                        </div>
-                    </div>
-                    <div class="border-t border-white/10 pt-4 flex justify-between items-center">
-                        <div>
-                            <p class="text-xs text-amber-300">Tamaño único</p>
-                            <p class="text-xl font-bold">14 oz de puro power</p>
-                        </div>
-                        <span class="bg-amber-500 text-coffee-dark font-black px-4 py-2 rounded-lg text-lg">$12.000</span>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="flavor-card fc-2">
+        <div class="fc-content">
+          <span class="fc-tag">Intenso</span>
+          <h3>Moka</h3>
+          <p>Café con cacao oscuro, para los que aman el amargo.</p>
         </div>
-    </section>
-
-    <!-- Beneficios Section -->
-    <section id="beneficios" class="py-20 bg-white border-y border-orange-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">¿Por qué vas a obsesionarte con Yogucoffee?</h2>
-                <p class="text-gray-500 mt-4">Diseñado minuciosamente para los amantes del buen café que buscan una opción refrescante, saludable y brutalmente deliciosa.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Tarjeta 1 -->
-                <div class="p-8 rounded-2xl bg-cream border border-orange-100 hover:shadow-xl transition duration-300 space-y-4">
-                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-800">
-                        <i data-lucide="snowflake" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold">Elดับ frío perfecto</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Olvídate del café caliente al mediodía bajo el sol de Barranquilla. Disfruta tu dosis de cafeína en un formato helado, cremoso y ultra refrescante.
-                    </p>
-                </div>
-                <!-- Tarjeta 2 -->
-                <div class="p-8 rounded-2xl bg-cream border border-orange-100 hover:shadow-xl transition duration-300 space-y-4">
-                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-800">
-                        <i data-lucide="heart-pulse" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold">Bienestar & Probióticos</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Yogur real, fermentado naturalmente. Cuida tu digestión mientras disfrutas del sabor intenso de granos de café seleccionados. ¡Sin remordimientos!
-                    </p>
-                </div>
-                <!-- Tarjeta 3 -->
-                <div class="p-8 rounded-2xl bg-cream border border-orange-100 hover:shadow-xl transition duration-300 space-y-4">
-                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-800">
-                        <i data-lucide="battery-charging" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="text-xl font-bold">Energía limpia y duradera</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        La combinación de proteínas del yogur y la cafeína genera una absorción más sostenida. Cero bajones de energía a mitad de la tarde.
-                    </p>
-                </div>
-            </div>
+      </div>
+      <div class="flavor-card fc-3">
+        <div class="fc-content">
+          <span class="fc-tag">Suave</span>
+          <h3>Avellana</h3>
+          <p>Un toque de avellana tostada sobre base de café.</p>
         </div>
-    </section>
-
-    <!-- Sabores / Versiones -->
-    <section id="sabores" class="py-20 bg-cream">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Elige tu intensidad</h2>
-                <p class="text-gray-500 mt-4">Tres perfiles de sabor creados para encajar exactamente con tu estilo de vida.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Sabor 1 -->
-                <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition border border-gray-100">
-                    <div class="bg-amber-900 text-center py-10 text-white relative">
-                        <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full absolute top-4 left-4">El Favorito</span>
-                        <i data-lucide="sparkles" class="w-16 h-16 mx-auto opacity-80 mb-2"></i>
-                        <h3 class="text-2xl font-black">Original Mocaccino</h3>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <p class="text-gray-600 text-sm text-center">El balance perfecto: café espresso, un toque sutil de cacao orgánico y nuestra base cremosa de yogur.</p>
-                        <ul class="space-y-2 text-xs text-gray-500 border-t pt-4">
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2"></i> Azúcar morena orgánica</li>
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2"></i> Nivel de Cafeína: Medio-Alto</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Sabor 2 -->
-                <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition border border-gray-100">
-                    <div class="bg-amber-950 text-center py-10 text-white relative">
-                        <i data-lucide="zap" class="w-16 h-16 mx-auto opacity-80 mb-2"></i>
-                        <h3 class="text-2xl font-black">Double Shot Fit</h3>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <p class="text-gray-600 text-sm text-center">Para los puristas del café y el entrenamiento. Doble carga de espresso, sin azúcar añadida y deslactosado.</p>
-                        <ul class="space-y-2 text-xs text-gray-500 border-t pt-4">
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2"></i> 0% Azúcar añadida • Keto Friendly</li>
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2"></i> Nivel de Cafeína: Intenso</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Sabor 3 -->
-                <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition border border-gray-100">
-                    <div class="bg-amber-800 text-center py-10 text-white relative">
-                        <i data-lucide="cookie" class="w-16 h-16 mx-auto opacity-80 mb-2"></i>
-                        <h3 class="text-2xl font-black">Sweet Caramelo</h3>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <p class="text-gray-600 text-sm text-center">Un premio para tu paladar. Yogur de café suave con vetas de arequipe artesanal premium.</p>
-                        <ul class="space-y-2 text-xs text-gray-500 border-t pt-4">
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2"></i> Topping de galleta crujiente opcional</li>
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2"></i> Nivel de Cafeína: Suave</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="flavor-card fc-4">
+        <div class="fc-content">
+          <span class="fc-tag">Tropical</span>
+          <h3>Coco Tostado</h3>
+          <p>Café con coco tostado, el sabor de la costa en pote.</p>
         </div>
-    </section>
-
-    <!-- Social Proof / Testimonios (Con sabor local) -->
-    <section id="testimonios" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Lo que dicen en la Arenosa 🇨🇴</h2>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-cream p-6 rounded-2xl border border-gray-100">
-                    <div class="flex text-amber-500 mb-4"><i data-lucide="star" class="w-4 h-4 fill-current" var></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                    <p class="text-gray-600 text-sm italic">"¡Erda, qué delicia! Trabajar desde el norte con este calor y mandarse un Yogucoffee frío te despierta porque te despierta. El Double Shot es mi favorito."</p>
-                    <div class="mt-4 font-bold text-sm">— Mateo V., Desarrollador Freelance</div>
-                </div>
-                <div class="bg-cream p-6 rounded-2xl border border-gray-100">
-                    <div class="flex text-amber-500 mb-4"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                    <p class="text-gray-600 text-sm italic">"Pensé que iba a ser muy hostigante, pero el toque ácido del yogur con el amargo del café está en su punto. Es mi snack oficial post-gimnasio."</p>
-                    <div class="mt-4 font-bold text-sm">— Valeria M., Crossfitter & Nutrióloga</div>
-                </div>
-                <div class="bg-cream p-6 rounded-2xl border border-gray-100">
-                    <div class="flex text-amber-500 mb-4"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
-                    <p class="text-gray-600 text-sm italic">"Lo pedí para la oficina por WhatsApp y llegó volando y bien frío a la 72. El de Mocaccino es una locura total."</p>
-                    <div class="mt-4 font-bold text-sm">— Carlos D., Arquitecto</div>
-                </div>
-            </div>
+      </div>
+      <div class="flavor-card fc-5">
+        <div class="fc-content">
+          <span class="fc-tag">Especiado</span>
+          <h3>Canela</h3>
+          <p>Café con canela real, como el tinto de la abuela.</p>
         </div>
-    </section>
-
-    <!-- CTA / Pedidos (Formulario UI moderno) -->
-    <section id="pedidos" class="py-20 bg-coffee-dark text-white relative overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(#C8A27C_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
-        <div class="max-w-3xl mx-auto px-6 relative z-10 text-center">
-            <h2 class="text-3xl md:text-5xl font-black tracking-tight">¿Te dio sed de la buena?</h2>
-            <p class="text-amber-200 mt-4 text-lg">Pide hoy mismo y te lo llevamos directamente a tu casa u oficina en Barranquilla.</p>
-            
-            <form class="mt-10 bg-white p-8 rounded-3xl text-coffee-dark text-left shadow-2xl space-y-6 max-w-xl mx-auto" onsubmit="event.preventDefault(); alert('¡Pedido recibido simulado! Conectando con el WhatsApp de Yogucoffee...');">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Tu Nombre</label>
-                        <input type="text" placeholder="Ej. Juan Pérez" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-700 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">WhatsApp</label>
-                        <input type="tel" placeholder="Ej. 3001234567" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-700 text-sm">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">¿Cuál sabor quieres probar?</label>
-                    <select class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-700 text-sm appearance-none">
-                        <option>Original Mocaccino — $12.000</option>
-                        <option>Double Shot Fit (Sin Azúcar) — $13.500</option>
-                        <option>Sweet Caramelo — $12.000</option>
-                        <option>Pack YoguLover (Prueba los 3) — $34.000</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Dirección de Entrega en B/quilla</label>
-                    <input type="text" placeholder="Ej. Cra 51B # 84 - 20" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-amber-700 text-sm">
-                </div>
-                
-                <button type="submit" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-4 rounded-xl text-center shadow-lg transition duration-300 flex items-center justify-center space-x-2">
-                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-                    <span>Ordenar vía WhatsApp (Pago Contraentrega)</span>
-                </button>
-                <p class="text-center text-xs text-gray-400">Despachos rápidos en el norte, centro e inmediaciones. Pago seguro al recibir.</p>
-            </form>
+      </div>
+      <div class="flavor-card fc-6">
+        <div class="fc-content">
+          <span class="fc-tag">Favorito</span>
+          <h3>Caramelo Salado</h3>
+          <p>Dulce, salado y con cafeína. El más pedido en Riomar.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="bg-neutral-950 text-gray-400 py-12 text-center text-sm border-t border-neutral-900">
-        <div class="max-w-7xl mx-auto px-6 space-y-4">
-            <p class="font-bold text-white text-lg">Yogu<span class="text-amber-500">coffee</span></p>
-            <p>Hecho con 🤎 para el calor de Barranquilla.</p>
-            <div class="flex justify-center space-x-6 text-gray-500">
-                <a href="#" class="hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                <a href="#" class="hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-            </div>
-            <p class="text-xs text-gray-600 pt-4">© 2026 Yogucoffee. Todos los derechos reservados.</p>
+<section id="historia" class="story">
+  <svg class="story-swirl" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 20 C150 40, 30 150, 180 180 S 380 250, 250 320 S 60 380, 150 400" fill="none" stroke="#F2A93B" stroke-width="6" stroke-linecap="round"/>
+  </svg>
+  <div class="wrap">
+    <div data-reveal>
+      <span class="eyebrow">Nuestra historia</span>
+      <h2>Nacimos donde el café de los Andes se encuentra con el mar Caribe.</h2>
+      <p>En Barranquilla nadie se toma un tinto caliente a las once de la mañana. Por eso empezamos a mezclar el café que traíamos del interior con el yogur que hacíamos en una planta pequeña de la ciudad. Frío, espeso, para aguantar el calor y la rumba.</p>
+      <p>Hoy Yogucoffe se produce y distribuye desde Barranquilla para toda la región Caribe.</p>
+    </div>
+    <div class="quote" data-reveal>
+      "Aquí no tomamos tinto en las mañanas. Nos lo comemos con cuchara, bien frío."
+      <cite>— Equipo Yogucoffe</cite>
+    </div>
+  </div>
+</section>
+
+<section id="puntos" class="points">
+  <div class="wrap points-wrap">
+    <div data-reveal>
+      <span class="eyebrow">Puntos de venta</span>
+      <h2>Encuéntranos en tu barrio</h2>
+      <p style="color:var(--espresso-soft); margin-top:14px;">Yogucoffe está en tiendas, panaderías y supermercados de estos sectores de Barranquilla.</p>
+    </div>
+    <div>
+      <div class="route">
+        <div class="route-item">
+          <div class="route-dot"></div>
+          <div><h4>El Prado</h4><span>Tiendas de barrio y panaderías</span></div>
         </div>
-    </footer>
+        <div class="route-item">
+          <div class="route-dot"></div>
+          <div><h4>Alto Prado</h4><span>Supermercados y cafeterías</span></div>
+        </div>
+        <div class="route-item">
+          <div class="route-dot"></div>
+          <div><h4>Riomar</h4><span>Centros comerciales y gimnasios</span></div>
+        </div>
+        <div class="route-item">
+          <div class="route-dot"></div>
+          <div><h4>Boston</h4><span>Tiendas de barrio</span></div>
+        </div>
+        <div class="route-item">
+          <div class="route-dot"></div>
+          <div><h4>Buenavista y Ciudad Jardín</h4><span>Supermercados de cadena</span></div>
+        </div>
+      </div>
+      <div class="points-note">
+        ¿Tienes una tienda en Barranquilla y quieres vender Yogucoffe? <a href="#contacto">Escríbenos aquí</a>.
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Inicializar Lucide Icons -->
-    <script>
-        lucide.createIcons();
-    </script>
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Lo que dice la gente</span>
+      <h2>La costa ya lo probó.</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card" data-reveal>
+        <p>"Lo pido cada vez que salgo de la universidad. Rinde toda la tarde de estudio."</p>
+        <div class="test-who">Karen — Riomar</div>
+      </div>
+      <div class="test-card" data-reveal>
+        <p>"El de caramelo salado se acabó en dos días en mi nevera. Ya voy en el segundo pedido."</p>
+        <div class="test-who">Andrés — Universidad del Norte</div>
+      </div>
+      <div class="test-card" data-reveal>
+        <p>"En mi tienda es lo primero que se agota los viernes. La gente lo pide por nombre."</p>
+        <div class="test-who">Doña Silvia — Tienda La Esquina, Boston</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="cta-final">
+  <svg class="cta-swirl" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <path d="M0 200 C150 100, 250 300, 400 200 S 650 100, 800 200" fill="none" stroke="#FBF2E3" stroke-width="40" stroke-linecap="round"/>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--crema);">Contacto</span>
+    <h2>¿Listo para probarlo bien frío?</h2>
+    <a href="https://wa.me/573000000000" class="btn btn-light">Pídelo por WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <div class="logo">Yogucoffe</div>
+    <div class="footer-links">
+      <a href="#producto">Producto</a>
+      <a href="#sabores">Sabores</a>
+      <a href="#puntos">Puntos de venta</a>
+    </div>
+    <div>Barranquilla, Colombia · © 2026 Yogucoffe</div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('[data-reveal], .benefit-card, .flavor-card');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
 </body>
 </html>
